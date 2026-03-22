@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyst AI Assistant</title>
+    <style>
+        /* BASE STYLES */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --primary-blue: #3b82f6;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND DECORATION */
+        .blob {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            top: -100px;
+            right: -100px;
+        }
+
+        /* MAIN CARD */
+        .container {
+            width: 90%;
+            max-width: 650px;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            background: linear-gradient(90deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        p.subtitle {
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* FORM STYLES */
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 18px;
+            color: white;
+            font-size: 1rem;
+            resize: none;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.5);
+        }
+
+        /* RESPONSE SECTION */
+        .response-container {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+
+        .response-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+        }
+
+        .response-label {
+            color: var(--accent-green);
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .response-text {
+            background: rgba(15, 23, 42, 0.4);
+            padding: 20px;
+            border-radius: 18px;
+            line-height: 1.6;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blob"></div>
+
+    <div class="container">
+        <h1>Master RAG</h1>
+        <p class="subtitle">AI Intelligent Analysis & Search</p>
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Ask your documents</label>
+                <textarea name="query" required rows="3" placeholder="What would you like to know?">{{ query if query else '' }}</textarea>
+            </div>
+
+            <button type="submit">Analyze Now</button>
+        </form>
+
+        {% if answer %}
+        <div class="response-container">
+            <div class="response-header">
+                <div class="dot"></div>
+                <div class="response-label">AI Analysis Result</div>
+            </div>
+            <div class="response-text">
+                {{ answer }}
+            </div>
+        </div>
+        {% endif %}
+
+        <footer>
+            <span>Status: <b style="color:var(--accent-green)">● Online</b></span>
+            <span>Engine: <b>Llama 3.1</b></span>
+        </footer>
+    </div>
+
+</body>
+</html>
